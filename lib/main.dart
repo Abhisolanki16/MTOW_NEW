@@ -1,8 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:login/create_profile.dart';
-import 'package:login/login_page.dart';
-import 'package:login/navbar.dart';
+import 'package:login/adminNavbar.dart';
+import 'package:login/login.dart';
+import 'package:login/temp.dart';
+import 'package:login/viewdata.dart';
+
 
 void main(){
   runApp(MyApp());
@@ -10,10 +12,10 @@ void main(){
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       //theme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
-      home: MyNavigationBar(),
+      home: login(),
     );
   }
 }
