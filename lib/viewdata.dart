@@ -10,9 +10,18 @@ class viewData extends StatefulWidget {
 }
 
 class _viewDataState extends State<viewData> {
+
   List userdata = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getrecord();
+    
+  }
+  
   Future getrecord() async {
-    String uri = "http://192.168.120.109/flutter_app/viewdata.php";
+    String uri = "http://192.168.108.109/flutter_app/viewdata.php";
     try {
       var response = await http.get(Uri.parse(uri));
 
@@ -33,8 +42,8 @@ class _viewDataState extends State<viewData> {
         itemBuilder: (context, index) {
           return Card(
             child: ListTile(
-              title: Text(userdata[index]["full_name"],),
-              subtitle: Text(userdata[index]["unique_id"]),
+              title: Text("${userdata[index]["full_name"]}",),
+              subtitle: Text("${userdata[index]["unique_id"]}"),
             ),
           );
         },

@@ -38,6 +38,7 @@ dependencies:
   fluttertoast: ^8.1.1
   image_picker: ^0.8.6
   google_ml_kit: ^0.7.3
+  #flutter_session: ^0.1.0
   
 
 dev_dependencies:
@@ -75,6 +76,8 @@ flutter:
     - assets/userblack.png
     - assets/userr.png
     - assets/staff.png
+    - assets/square_tick.png
+    - assets/circle_tick.png
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

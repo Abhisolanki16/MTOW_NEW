@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:login/login.dart';
+import 'package:login/Screens/login.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -12,27 +12,50 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
- 
+
   List userdata = [];
-  Future<void> getrecord() async {
-    String uri = "http://192.168.219.109/flutter_app/viewdata.php";
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getrecord();
+    
+  }
+  
+  Future getrecord() async {
+    String uri = "http://192.168.95.109/flutter_app/viewdata.php";
     try {
       var response = await http.get(Uri.parse(uri));
 
       setState(() {
-        userdata = jsonDecode(response.body);
+        userdata = json.decode(response.body);
       });
     } catch (e) {
       print(e);
     }
   }
+ 
+  // List userdata = [];
+  // Future<void> getrecord() async {
+  //   String uri = "http://192.168.219.109/flutter_app/viewdata.php";
+  //   try {
+  //     var response = await http.get(Uri.parse(uri));
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    getrecord();
-    super.initState();
-  }
+  //     setState(() {
+  //       userdata = jsonDecode(response.body);
+  //     });
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   getrecord();
+  //   super.initState();
+  // }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -63,23 +86,19 @@ class _ProfilePageState extends State<ProfilePage> {
                 const Center(
                   child: Text("ABHI SOLANKI",style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                 ),
-                 SizedBox(height: height/40,),
+                 SizedBox(height: height/55,),
         
         
                 Center(
-                  child: Container(
-                    width: width/1,
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 1),
-                      borderRadius: const BorderRadius.all(const Radius.circular(25))
-                      ),
-                      margin: EdgeInsets.symmetric(horizontal: width/3),
-                    child: FlatButton(
-                      onPressed: (() {
-                        
-                      }),
-                      child: const Text("Edit Profile"),
-                    ),
+                  child: ElevatedButton(
+                    onPressed: (() {
+                      
+                    }),
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),),
+                      primary: Color(0xFFFF981A),),
+                    child: const Text("Edit Profile"),
                   ),
                 ),
         
@@ -140,18 +159,16 @@ class _ProfilePageState extends State<ProfilePage> {
         
                   SizedBox(height: height/15,),
         
-                Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(10))
-                  ),
-                  child: RaisedButton(
-                    color: const Color(0xFFFF981A),
-                    onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const login(),));
-                  },
-                  child: const Text("LOGOUT",style: const TextStyle(color: Colors.white),),
-                  ),
-                )
+                // ElevatedButton(
+                //  // color: const Color(0xFFFF981A),
+                //   onPressed: () {
+                //   Navigator.push(context, MaterialPageRoute(builder: (context) => const login(),));
+                // },style: ElevatedButton.styleFrom(
+                //   shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(30),),
+                //   primary:Color(0xFFFF981A) ),
+                // child: const Text("LOGOUT",style: const TextStyle(color: Colors.white,fontSize: 15),),
+                // )
                   
               ],
             ),

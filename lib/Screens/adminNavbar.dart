@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:login/camera_screen.dart';
-import 'package:login/profile_screen.dart';
-import 'package:login/veh_records.dart';
+import 'package:login/Screens/profile_screen.dart';
+import 'package:login/Screens/staff_records.dart';
+import 'package:login/veh_checkbox.dart';
+import 'package:login/Screens/veh_records.dart';
 
-class NavigatioBar extends StatefulWidget {
-  const NavigatioBar({Key? key}) : super(key: key);
+class adminNavBar extends StatefulWidget {
+  const adminNavBar({Key? key}) : super(key: key);
 
   @override
-  State<NavigatioBar> createState() => _NavigatioBarState();
+  State<adminNavBar> createState() => _adminNavBarState();
 }
 
-class _NavigatioBarState extends State<NavigatioBar> {
+class _adminNavBarState extends State<adminNavBar> {
   int currentIndex = 0;
   final List<Widget> _children = [
-    VehicleRecords(),
-    CameraScreen(),
+    VehicleCheckBox(),
+    staffRecords(),
     ProfilePage(),
   ];
 
@@ -51,8 +52,8 @@ class _NavigatioBarState extends State<NavigatioBar> {
                 label: "Vehicles",
                 ),
                 BottomNavigationBarItem(
-                icon: Icon(Icons.camera_alt),
-                label: "Camera",
+                icon: Icon(Icons.group_sharp),
+                label: "Staff",
                 ),
                 BottomNavigationBarItem(
                 icon: Icon(Icons.person),

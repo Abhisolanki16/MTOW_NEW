@@ -1,13 +1,20 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:login/create_profile.dart';
+import 'package:login/Screens/create_profile.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 
-class login extends StatelessWidget {
+
+
+class login extends StatefulWidget {
   const login({Key? key}) : super(key: key);
 
+  @override
+  State<login> createState() => _loginState();
+}
+
+class _loginState extends State<login> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -21,8 +28,11 @@ class login extends StatelessWidget {
      TextEditingController usernameController = TextEditingController();
      TextEditingController passwordController = TextEditingController();
 
+     GlobalKey<FormState> formKey = GlobalKey<FormState>();
+     //String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+
     Future Login() async {
-    String url = "http://192.168.120.109/flutter_app/login.php";
+    var url = "http://192.168.108.109/flutter_app/login.php";
     Uri uri = Uri.parse(url);
     var response = await http.post(uri,
      body: {
@@ -61,17 +71,19 @@ class login extends StatelessWidget {
   
 
    return Scaffold(
-        body: SafeArea(
-          child: Container(
-            //constraints: BoxConstraints.expand(),
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/SCREEN 1-01.jpeg'),
-                fit: BoxFit.cover,
-              ),
+        body: Container(
+          //constraints: BoxConstraints.expand(),
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/SCREEN 1-01.jpeg'),
+              fit: BoxFit.cover,
             ),
-            child: Center(
-              child: SingleChildScrollView(
+          ),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Form(
+                autovalidateMode: AutovalidateMode.always,
+                key: formKey,
                 child: Column(
                   children: 
                    [
@@ -87,9 +99,17 @@ class login extends StatelessWidget {
                       
                     Padding(
                     padding: EdgeInsets.symmetric(horizontal:width/20),
-                    child: TextField(
+                    child: TextFormField(
+                      validator: (value) {
+                          if(value == null || value.isEmpty ){
+                            return "Please fill all fields";
+                            
+                          }else{
+                            return null ;
+                          }
+                        },
                       controller: usernameController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         icon: Icon(Icons.person,size: 30,),
                           border: OutlineInputBorder(),
                           labelText: 'Unique ID',
@@ -103,7 +123,16 @@ class login extends StatelessWidget {
                   Padding(
                     //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
                     padding: EdgeInsets.symmetric(horizontal: width/20),
-                    child: TextField(
+                    child: TextFormField(
+                      validator: (value) {
+                          if(value == null || value.isEmpty){
+                            return "Please fill all fields";
+                          }else if(value.length < 8){
+                            return "At least 8 characters required" ;
+                          }else {
+                            return null;
+                          }
+                        },
                       controller: passwordController,
                       decoration: const InputDecoration(
                           icon: Icon(Icons.lock,size: 30,),
@@ -117,17 +146,27 @@ class login extends StatelessWidget {
                   Padding(
                       
                     padding: EdgeInsets.only(top: height/20),
-                    child: FlatButton(  
+                    child: ElevatedButton(  
                     onPressed: () {
-                      Login();
+                      
+                      if(formKey.currentState!.validate()){
+                        //String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+                        Login();
+                         formKey.currentState!.save();
+                          print("submitted");
+                          }
                       //  Navigator.push(
                       //     context,
                       //     MaterialPageRoute(builder: (context) => const CreateProfile()));
                     },  
-                    color: const Color(0xFFFA7618),
-                    textColor: Colors.white,  
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFFFC6600),
+                    ),
+                    //color: const Color(0xFFFC6600),
+                    //textColor: Colors.white,  
                     child: const Text('Login', style: TextStyle(fontSize: 20.0),),
                   ),  
+                  
                   )               
                   ],
                 ),
@@ -137,4 +176,4 @@ class login extends StatelessWidget {
         ),
     );
   }
-  }
+}

@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:login/profile_screen.dart';
-import 'package:login/staff_records.dart';
-import 'package:login/veh_checkbox.dart';
-import 'package:login/veh_records.dart';
+import 'package:login/Screens/camera_screen.dart';
+import 'package:login/Screens/profile_screen.dart';
+import 'package:login/Screens/scan_screen.dart';
+import 'package:login/Screens/veh_records.dart';
 
-class adminNavBar extends StatefulWidget {
-  const adminNavBar({Key? key}) : super(key: key);
+class NavigatioBar extends StatefulWidget {
+  const NavigatioBar({Key? key}) : super(key: key);
 
   @override
-  State<adminNavBar> createState() => _adminNavBarState();
+  State<NavigatioBar> createState() => _NavigatioBarState();
 }
 
-class _adminNavBarState extends State<adminNavBar> {
+class _NavigatioBarState extends State<NavigatioBar> {
   int currentIndex = 0;
   final List<Widget> _children = [
-    VehicleCheckBox(),
-    staffRecords(),
+    VehicleRecords(),
+    ScanScreen(),
     ProfilePage(),
   ];
 
@@ -35,7 +35,7 @@ class _adminNavBarState extends State<adminNavBar> {
       debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(  
-          appBar: AppBar(  
+          appBar: AppBar(
             title: Text('M-Towing'),  
               backgroundColor: Color(0xFFFF981A),
           ),    
@@ -52,8 +52,8 @@ class _adminNavBarState extends State<adminNavBar> {
                 label: "Vehicles",
                 ),
                 BottomNavigationBarItem(
-                icon: Icon(Icons.group_sharp),
-                label: "Staff",
+                icon: Icon(Icons.camera_alt),
+                label: "Camera",
                 ),
                 BottomNavigationBarItem(
                 icon: Icon(Icons.person),

@@ -4,15 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
 
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class ScanScreen extends StatefulWidget {
+  const ScanScreen({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<ScanScreen> createState() => _ScanScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _ScanScreenState extends State<ScanScreen> {
   bool textScanning = false;
 
   XFile? imageFile;
@@ -22,10 +21,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text("Text Recognition example"),
-      ),
       body: Center(
           child: SingleChildScrollView(
         child: Container(
@@ -118,17 +113,25 @@ class _MyHomePageState extends State<MyHomePage> {
                   height: 20,
                 ),
                 Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 2)
+                  ),
                   child: Text(
                     scannedText,
                     style: TextStyle(fontSize: 20),
                   ),
-                )
+                ),
+                 SizedBox(
+                  height: 20,
+                ),
+                ElevatedButton(
+                  onPressed: (){},
+                 child: Text("Upload")),
               ],
             )),
       )),
-    );
+    ); 
   }
-
   void getImage(ImageSource source) async {
     try {
       final pickedImage = await ImagePicker().pickImage(source: source);
@@ -166,3 +169,5 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 }
+
+
