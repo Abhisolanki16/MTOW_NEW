@@ -5,6 +5,9 @@ import "package:flutter/material.dart";
 import 'package:login/Screens/navigationbar.dart';
 import 'package:image_picker/image_picker.dart';
 
+
+
+
 class CreateProfile extends StatefulWidget {
   const CreateProfile({Key? key}) : super(key: key);
 
@@ -30,6 +33,7 @@ class _CreateProfileState extends State<CreateProfile> {
 
   ImagePicker imagePicker = new ImagePicker();
 
+
   Future<void> getImage() async{
     var getImage = await imagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
@@ -42,29 +46,12 @@ class _CreateProfileState extends State<CreateProfile> {
     });
   }
 
-  // Future<void> uploadImage() async{
-  //   try{
-  //     String uri = "http://192.168.69.109/flutter_app/insertdata.php";
-  //     var res = await http.post(Uri.parse(uri),body: {
-  //       "data": imagedata,
-  //       "name": imagename
-  //     });
-  //     var response = jsonDecode(res.body);
-  //     if(response["success"] == true){
-  //       print("uploaded");
-  //     }
-  //     else{
-  //       print("some issue");
-  //     }
-  //   }catch(e){
-  //     print(e);
-  //   }
-  // }
 
   Future<void> insertrecord() async { 
     if(full_name_Controller.text != "" || unique_id_Controller.text != "" || mobile_no_Controller.text != "" || pincode_Controller.text != ""){
       try{
-        String uri = "http://192.168.69.109/flutter_app/insertdata.php";
+        String uri = "https://mtow.000webhostapp.com/insertdata.php";
+        //String uri = "http://172.16.27.19/flutter_app/insertdata.php";
         var res = await http.post(Uri.parse(uri),
         body: {
           "full_name": full_name_Controller.text,
@@ -92,27 +79,6 @@ class _CreateProfileState extends State<CreateProfile> {
                         MaterialPageRoute(builder: (context) => const NavigatioBar()));
    
   }
-
-
-  String location = 'MANINAGAR';
-  String post = 'PSI';
-  var Location = [   
-    'MANINAGAR',
-    'LAW GARDEN',
-    'ELISBRIDGE',
-    'NEHRUNAGAR',
-    'PALDI',
-  ];
-  var POST = [   
-    'PSI',
-    'PI',
-    'DCP',
-    'ASI',
-    'CONSTABLE',
-  ];
-
-  
-
 
   @override
   Widget build(BuildContext context) {
@@ -148,9 +114,10 @@ class _CreateProfileState extends State<CreateProfile> {
                 : Container(
                   margin: EdgeInsets.only(top: 20,bottom: 40),
                   child: CircleAvatar(
-                    backgroundColor: Color(0xFFFF981A),
-                    child: Image.file(imagepath!),
-                    radius: 50),
+                    backgroundColor: Color(0xFFFC6600),
+                    //child: Image.file(imagepath!),
+                    backgroundImage: Image.file(imagepath!).image,
+                    radius: 70),
                 ),
 
                   Padding(
@@ -239,84 +206,33 @@ class _CreateProfileState extends State<CreateProfile> {
                     ),
                   ),
               
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                      Container(
-                        padding: EdgeInsets.only(left: 10),
-                        decoration: BoxDecoration(
-                        border: Border.all(width: 2),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                        child:DropdownButton(
-                     
-                    // Initial Value
-                    value: location,
-                     
-                    // Down Arrow Icon
-                    icon: const Icon(Icons.keyboard_arrow_down),   
-                     
-                    // Array list of items
-                    items: Location.map((String items) {
-                      return DropdownMenuItem(
-                        value: items,
-                        child: Text(items),
-                      );
-                    }).toList(), onChanged: (String? value) {  })
-                      ),
-                 // -----------------------------------------------------------------------          
-                    Container(
-                       padding: EdgeInsets.only(left: 10),
-                       decoration: BoxDecoration(
-                        border: Border.all(width: 2),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-              
-                        child:DropdownButton(
-              
-                     
-                    // Initial Value
-                    value: post,
-                     
-                    // Down Arrow Icon
-                    icon: const Icon(Icons.keyboard_arrow_down),   
-                     
-                    // Array list of items
-                    items: POST.map((String items) {
-                      return DropdownMenuItem(
-                        value: items,
-                        child: Text(items),
-                      );
-                    }).toList(), onChanged: (String? value) {  })
-                      ),
-              
-              
-              
-                    ]),
-                  ),
+                  
                   SizedBox(height: 30,),
                     
                   ElevatedButton(
                     onPressed: () {
-                      // if(formKey.currentState!.validate()){
-                      //   insertrecord();
-                      //   formKey.currentState!.save();
-                      // }
-                      
-                      setState(() {
+                      if(formKey.currentState!.validate()){
                         insertrecord();
-                      });
+                        formKey.currentState!.save();
+                      }
+                      
+                      // setState(() {
+                      //   insertrecord();
+                      // });
                       
                       //insertrecord();
                      
                         },style: ElevatedButton.styleFrom(
+                          
                           textStyle: TextStyle(fontSize: 10),
                         primary: Color(0xFFFC6600),
                       ),
-                    child: Text(
-                      'Submit',
-                      style: TextStyle(color: Colors.white, fontSize: 25),
+                    child: Container(
+                      padding: EdgeInsets.all(7),
+                      child: Text(
+                        'Submit',
+                        style: TextStyle(color: Colors.white, fontSize: 25),
+                      ),
                     ),
                   ),
                 ],

@@ -38,7 +38,11 @@ dependencies:
   fluttertoast: ^8.1.1
   image_picker: ^0.8.6
   google_ml_kit: ^0.7.3
-  #flutter_session: ^0.1.0
+  geolocator: ^9.0.2
+  geocoding: ^2.0.5
+  shared_preferences: ^2.0.17
+  curved_navigation_bar: ^1.0.3
+  #flutter_session:
   
 
 dev_dependencies:

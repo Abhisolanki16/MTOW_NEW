@@ -23,7 +23,8 @@ class _VehicleRecordsState extends State<VehicleRecords> {
   }
   
   Future getrecord() async {
-    String uri = "http://192.168.108.109/flutter_app/viewdata.php";
+    String uri = "https://mtow.000webhostapp.com/viewdata.php";
+    //String uri = "http://172.16.27.19/flutter_app/viewdata.php";
     try {
       var response = await http.get(Uri.parse(uri));
 
@@ -38,15 +39,17 @@ class _VehicleRecordsState extends State<VehicleRecords> {
    @override
   Widget build(BuildContext context) {
     return Scaffold(
-     // backgroundColor: Colors.orange[600],
+      backgroundColor: Colors.grey.shade100,
      
       body: ListView.builder(
         itemCount: userdata.length,
         itemBuilder: (context, index) {
           return Card(
+            //color: Colors.deepOrange.shade500,
             shape: RoundedRectangleBorder(
                borderRadius: BorderRadius.circular(15),),
             child: ListTile(
+              //col:Color(0xFFFF981A),
               title: Text("${userdata[index]["number_plate"]}",style: TextStyle(fontSize: 15,),),
               subtitle: Text("${userdata[index]["area"]}",style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
             ),

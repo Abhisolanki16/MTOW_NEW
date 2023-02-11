@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:login/Screens/create_profile.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
@@ -32,7 +33,8 @@ class _loginState extends State<login> {
      //String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
 
     Future Login() async {
-    var url = "http://192.168.108.109/flutter_app/login.php";
+    String url = "https://mtow.000webhostapp.com/login.php";
+    //String url = "http://172.16.27.19/flutter_app/login.php";
     Uri uri = Uri.parse(url);
     var response = await http.post(uri,
      body: {
@@ -83,7 +85,7 @@ class _loginState extends State<login> {
             child: SingleChildScrollView(
               child: Form(
                 autovalidateMode: AutovalidateMode.always,
-                key: formKey,
+                //key: formKey,
                 child: Column(
                   children: 
                    [
@@ -147,14 +149,19 @@ class _loginState extends State<login> {
                       
                     padding: EdgeInsets.only(top: height/20),
                     child: ElevatedButton(  
-                    onPressed: () {
+                    onPressed: () async {
+
+                      Login();
+                      //  final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+                      //     sharedPreferences.setString('username',usernameController.text);
+                      print("login success");
                       
-                      if(formKey.currentState!.validate()){
-                        //String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-                        Login();
-                         formKey.currentState!.save();
-                          print("submitted");
-                          }
+                      // if(formKey.currentState!.validate()){
+                      //   String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+                      //   Login();
+                      //    formKey.currentState!.save();
+                      //     print("submitted");
+                      //     }
                       //  Navigator.push(
                       //     context,
                       //     MaterialPageRoute(builder: (context) => const CreateProfile()));
