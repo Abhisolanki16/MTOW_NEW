@@ -29,11 +29,11 @@ class _CurvedBarState extends State<CurvedBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepOrange.shade500,
-        title: Text("AbhiSolanki"),
+        backgroundColor: Color(0xFFFF981A),
+        title: Text("M-Towing"),
       ),
       bottomNavigationBar: CurvedNavigationBar(
-        color:  Colors.deepOrange.shade500,
+        color:  Color(0xFFFF981A),
         backgroundColor: Colors.white,
         key: _bottomNavigationKey,
         items: <Widget>[

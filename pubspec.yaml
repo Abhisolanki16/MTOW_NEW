@@ -42,6 +42,8 @@ dependencies:
   geocoding: ^2.0.5
   shared_preferences: ^2.0.17
   curved_navigation_bar: ^1.0.3
+  get: ^4.6.5
+  intl: ^0.18.0
   #flutter_session:
   
 
@@ -82,6 +84,7 @@ flutter:
     - assets/staff.png
     - assets/square_tick.png
     - assets/circle_tick.png
+    - assets/location.png
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
