@@ -3,13 +3,15 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:login/Screens/adminNavbar.dart';
+import 'package:login/Screens/frgtpswd.dart';
 import 'package:login/Screens/profile_screen.dart';
 import 'package:login/Screens/scan_screen.dart';
 import 'package:login/Screens/splashscreen.dart';
-import 'package:login/api.dart';
 import 'package:login/Screens/create_profile.dart';
 import 'package:login/Screens/login.dart';
 import 'package:login/Screens/navigationbar.dart';
+import 'package:login/abc.dart';
+import 'package:login/add_user.dart';
 import 'package:login/curvedNavbar.dart';
 import 'package:login/pincode.dart';
 
@@ -33,8 +35,8 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       //theme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
-      //home: CreateProfile(),
-      home: ScanScreen() 
+      //home: ScanScreen(),
+      home: CreateProfile () 
       //Pincode(title: "pincode app"),
     );
   }

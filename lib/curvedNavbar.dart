@@ -4,6 +4,7 @@ import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:login/Screens/profile_screen.dart';
 import 'package:login/Screens/scan_screen.dart';
 import 'package:login/Screens/veh_records.dart';
+import 'package:login/add_user.dart';
 
 class CurvedBar extends StatefulWidget {
   CurvedBar({
@@ -31,6 +32,7 @@ class _CurvedBarState extends State<CurvedBar> {
       appBar: AppBar(
         backgroundColor: Color(0xFFFF981A),
         title: Text("M-Towing"),
+        
       ),
       bottomNavigationBar: CurvedNavigationBar(
         color:  Color(0xFFFF981A),
@@ -48,6 +50,55 @@ class _CurvedBarState extends State<CurvedBar> {
         },
       ),
       body: _children[_page],
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            UserAccountsDrawerHeader( 
+              accountName: Text("Abhinav Solanki"),  
+              accountEmail: Text("abhisolanki977@gmail.com"),  
+              currentAccountPicture: CircleAvatar(  
+                //backgroundColor: Colors.deepOrange,  
+                
+                child: Text(  
+                  "A",  
+                  style: TextStyle(fontSize: 40.0),  
+                ),  
+              ),  
+            ),  
+            ListTile(  
+              leading: Icon(Icons.home), title: Text("Home"),  
+              onTap: () {  
+                Navigator.pop(context);  
+              },  
+            ),  
+            ListTile(  
+              leading: Icon(Icons.person_add), title: Text("Add user"),  
+              onTap: () {  
+                Navigator.push(context, MaterialPageRoute(builder: (context) => AddUser(),));  
+              },  
+            ),  
+            ListTile(  
+              leading: Icon(Icons.account_circle), title: Text("My profile"),  
+              onTap: () {  
+                Navigator.pop(context);  
+              },  
+            ), 
+             ListTile(  
+              leading: Icon(Icons.settings), title: Text("Settings"),  
+              onTap: () {  
+                Navigator.pop(context);  
+              },  
+            ),  
+            ListTile(  
+              leading: Icon(Icons.logout), title: Text("Log out"),  
+              onTap: () {  
+                Navigator.pop(context);  
+              },  
+            ),  
+
+          ],
+        ),
+      ),
     );
   }
 }

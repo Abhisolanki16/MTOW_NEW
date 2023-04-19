@@ -5,18 +5,21 @@ class User {
   late String phoneNo;
 
 
+
   User(
       {required this.userId,
       required this.fullname,
       required this.email,
       required this.phoneNo,
+     
       });
 
-  User.fromJson(Map<String, dynamic> json) {
+  User.fromJson(Map<String, dynamic> json, [param1]) {
     userId = json['userId'];
     fullname = json['username'];
     email = json['email'];
     phoneNo = json['phoneNo'];
+    
   }
 
   Map<String, dynamic> toJson() {
@@ -25,6 +28,7 @@ class User {
     data['username'] = this.fullname;
     data['email'] = this.email;
     data['phoneNo'] = this.phoneNo;
+    
     return data;
   }
 }

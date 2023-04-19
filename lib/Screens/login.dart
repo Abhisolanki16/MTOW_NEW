@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:login/Screens/create_profile.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:login/Screens/forgot_password.dart';
 import 'package:login/Screens/splashscreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -30,9 +31,10 @@ class _loginState extends State<login> {
     Future Login() async {
       // if (formKey.currentState!.validate()) {
         String url = "https://mtow.000webhostapp.com/login.php";
-        //String url = "http://172.16.27.19/flutter_app/login.php";
+        //String url = "http://192.168.143.109/flutter_app/login.php";
         Uri uri = Uri.parse(url);
         var response = await http.post(uri, body: {
+
           "username": usernameController.text,
           "password": passwordController.text,
         });
@@ -66,6 +68,8 @@ class _loginState extends State<login> {
       }
     // }
 
+  
+
     return Scaffold(
       body: Container(
         //constraints: BoxConstraints.expand(),
@@ -78,7 +82,7 @@ class _loginState extends State<login> {
         child: Center(
           child: SingleChildScrollView(
             child: Form(
-              autovalidateMode: AutovalidateMode.always,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               // key: formKey,
               child: Column(
                 children: [
@@ -126,7 +130,9 @@ class _loginState extends State<login> {
                           return "Please fill all fields";
                         } else if (value.length < 8) {
                           return "At least 8 characters required";
-                        } else {
+                        }else if (value.length == 16) {
+                          return "Maximum 16 characters is allowed";
+                        }else {
                           return null;
                         }
                       },
@@ -142,8 +148,16 @@ class _loginState extends State<login> {
                       ),
                     ),
                   ),
+                  Container(
+                    alignment: Alignment.center,
+                    child:
+                    TextButton(child: Text("Forgot Password ?",style: TextStyle(fontSize: 15),),onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPassword(),));
+                    },) 
+                    //Text("Forgot Password",style: TextStyle(color: Colors.blue),)
+                    ),
                   Padding(
-                    padding: EdgeInsets.only(top: height / 20),
+                    padding: EdgeInsets.only(top: height / 25),
                     child: ElevatedButton(
                       onPressed: ()  {
                         // ignore: non_constant_identifier_names

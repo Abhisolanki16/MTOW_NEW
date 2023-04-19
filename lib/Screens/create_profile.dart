@@ -7,6 +7,7 @@ import 'package:login/Screens/navigationbar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:login/Screens/profile_screen.dart';
 import 'package:login/UserModel.dart';
+import 'package:login/curvedNavbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 
@@ -37,9 +38,8 @@ class _CreateProfileState extends State<CreateProfile> {
   File? imagepath;
   String? imagename;
   String? imagedata;
-
-  String? gender;
-  String fname = "";
+  DateTime? pickedDate;
+  String? formattedDate;
 
   ImagePicker imagePicker = new ImagePicker();
 
@@ -94,8 +94,9 @@ class _CreateProfileState extends State<CreateProfile> {
         mobile_no_Controller.text != "" ||
         dateInput.text != "") {
       try {
-        //String uri = "https://mtow.000webhostapp.com/insertdata.php";
-        String uri = "http://192.168.3.109/flutter_app/upload_data.php";
+        
+        //String uri = "https://mtow.000webhostapp.com/create_profile.php";
+        String uri = "http://192.168.183.109/mtowing_php/create_profile.php";
         var res = await http.post(Uri.parse(uri), body: {
           "full_name": full_name_Controller.text,
           "mobile_no": mobile_no_Controller.text,
@@ -107,23 +108,22 @@ class _CreateProfileState extends State<CreateProfile> {
         var response = json.decode(res.body);
         if (response["Success"] == true) {
           print("Record Inserted");
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const NavigatioBar()));
         } else {
           print("Some Issue");
         }
-        
       } catch (e) {
         print(e);
       }
     } else {
       print("Please Fill All Fields");
     }
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const NavigatioBar()));
   }
 
   @override
   void initState() {
-    dateInput.text = ""; 
+    dateInput.text = "";
     //set the initial value of text field
     initPreferences();
     super.initState();
@@ -168,7 +168,7 @@ class _CreateProfileState extends State<CreateProfile> {
                               radius: 50),
                         )
                       : Container(
-                          margin: EdgeInsets.only(bottom:20),
+                          margin: EdgeInsets.only(bottom: 20),
                           child: CircleAvatar(
                               backgroundColor: Color(0xFFFC6600),
                               //child: Image.file(imagepath!),
@@ -255,7 +255,7 @@ class _CreateProfileState extends State<CreateProfile> {
                         prefixIcon: Icon(Icons.date_range_sharp),
                       ),
                       onTap: () async {
-                        DateTime? pickedDate = await showDatePicker(
+                        pickedDate = await showDatePicker(
                             context: context,
                             initialDate: DateTime.now(),
                             firstDate: DateTime(1950),
@@ -265,13 +265,13 @@ class _CreateProfileState extends State<CreateProfile> {
                         if (pickedDate != null) {
                           // print(
                           //     pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                          String formattedDate =
-                              DateFormat('yyyy-MM-dd').format(pickedDate);
+                          formattedDate =
+                              DateFormat('yyyy-MM-dd').format(pickedDate!);
                           print(
                               formattedDate); //formatted date output using intl package =>  2021-03-16
                           setState(() {
                             dateInput.text =
-                                formattedDate; //set output date to TextField value.
+                                formattedDate!; //set output date to TextField value.
                           });
                         } else {}
                       },
@@ -300,17 +300,24 @@ class _CreateProfileState extends State<CreateProfile> {
                   //     ),
                   //   ),
                   // ),
-                  
 
                   SizedBox(
                     height: 30,
                   ),
 
                   ElevatedButton(
-                    onPressed: () async{
-                      insertrecord();
-                      addData();
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage(),));
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        insertrecord();
+                        addData();
+                        print(formattedDate);
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CurvedBar(),
+                            ));
+                        formKey.currentState!.save();
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       textStyle: TextStyle(fontSize: 10),
@@ -332,14 +339,23 @@ class _CreateProfileState extends State<CreateProfile> {
       ),
     );
   }
-  void addData() async{
-    final User user = User(userId: DateTime.now().millisecondsSinceEpoch.toString(), fullname: full_name_Controller.text, email: email_Controller.text, phoneNo: mobile_no_Controller.text);
+
+  void addData() async {
+    final User user = User(
+        userId: DateTime.now().millisecondsSinceEpoch.toString(),
+        fullname: full_name_Controller.text,
+        email: email_Controller.text,
+        phoneNo: mobile_no_Controller.text,
+       
+        );
+      
     String jsonString = jsonEncode(user);
     preferences.setString('userdata', jsonString);
+    preferences.setString('dob', formattedDate!);
     preferences.setBool('isLogin', true);
-
   }
-  void initPreferences() async{
+
+  void initPreferences() async {
     preferences = await SharedPreferences.getInstance();
   }
 }

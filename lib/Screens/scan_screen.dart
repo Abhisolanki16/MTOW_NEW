@@ -22,7 +22,12 @@ class _ScanScreenState extends State<ScanScreen> {
   String scannedText = "";
 
   String location = 'Null, Press Button';
+  String street = '';
+  String subLocality = '';
+  String locality = '';
+  String administrative_area = '';
   String Address = '';
+  late int postalCode;
 
   TextEditingController generatedText = TextEditingController();
 
@@ -57,9 +62,15 @@ class _ScanScreenState extends State<ScanScreen> {
         await placemarkFromCoordinates(position.latitude, position.longitude);
     print(placemarks);
     Placemark place = placemarks[0];
-    Address =
-        '${place.street} , ${place.subLocality} , ${place.locality} , ${place.postalCode} , ${place.country}';
-        print(Address);
+
+    Address = '${place.street} , ${place.subLocality} , ${place.locality} , ${place.postalCode} , ${place.country}';
+    print(Address);
+    street = '${place.street}';
+    subLocality = '${place.subLocality}';
+    locality = '${place.locality}';
+    postalCode = int.parse('${place.postalCode}');
+    administrative_area = '${place.administrativeArea}';
+
     setState(() {});
   }
 
@@ -71,12 +82,21 @@ class _ScanScreenState extends State<ScanScreen> {
 
     Future<void> insert_np() async {
       try {
-        String uri = "http://192.168.127.109/flutter_app/11.php";
+        String uri = "https://mtow.000webhostapp.com/scan_screen.php";
+        //String uri = "http://192.168.153.109/mtowing_php/scan_screen.php";
         var res = await http.post(Uri.parse(uri),
             body: {
-              "number_plate": jsonEncode(scannedText),
-              "address" : jsonEncode(Address),
+              "registration_no": jsonEncode(scannedText),
+              "street" : jsonEncode(street),
+              "subLocality" : jsonEncode(subLocality),
+              "locality" : jsonEncode(locality),
+              "postalCode" : jsonEncode(postalCode),
+              "administrative_area" : jsonEncode(administrative_area),
+              
+              // "number_plate": jsonEncode(scannedText),
+              // "address" : jsonEncode(Address),
               });
+              
         var response = json.decode(res.body);
         if (response["Success"] == true) {
           print("Record Inserted");

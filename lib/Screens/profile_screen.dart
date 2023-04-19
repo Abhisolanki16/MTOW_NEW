@@ -16,15 +16,15 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   @override
   void initState() {
     initPreferences();
     super.initState();
   }
-  
+
   late SharedPreferences preferences;
   User? user = null;
+  String dob = "";
 
   @override
   Widget build(BuildContext context) {
@@ -33,149 +33,192 @@ class _ProfilePageState extends State<ProfilePage> {
     final width = size.width;
 
     return Scaffold(
-      
       body: SafeArea(
         child: SingleChildScrollView(
           child: Stack(
             children: [
+              Container(
+                //color: Colors.red,height: 200,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),),
               //SizedBox(height: 100),
-            Column(
-              children: [
-        
-                Container(
-                  //alignment: Alignment.topCenter,
-                  margin: EdgeInsets.only(top: height/25),
-                  child: const CircleAvatar(
-                          backgroundColor: Color(0xFFFF981A),
-                          child: Icon(Icons.person,size: 60,color: Colors.white,),
-                          radius: 60,
+              Column(
+                children: [
+                  Container(
+                    //alignment: Alignment.topCenter,
+                    margin: EdgeInsets.only(top: height / 25),
+                    child: const CircleAvatar(
+                      backgroundColor: Color(0xFFFF981A),
+                      child: Icon(
+                        Icons.person,
+                        size: 60,
+                        color: Colors.white,
+                      ),
+                      radius: 60,
+                    ),
                   ),
-                ),
-        
-                SizedBox(height: height/55,),
-        
-                 Center(
-                  child: user != null ? Text("${user!.fullname}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)
-                  : Text("UserName")
-                ),
-                 SizedBox(height: height/55,),
-        
-        
-                Center(
-                  child: ElevatedButton(
-                    onPressed: (() {
-                      
-                    }),
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),),
-                      primary: Color(0xFFFF981A),),
-                    child: const Text("Edit Profile"),
+                  SizedBox(
+                    height: height / 55,
                   ),
-                ),
-        
-                 SizedBox(height: height/40,),
-        
-        
-                Container(
+                  Center(
+                      child: user != null
+                          ? Text(
+                              "${user!.fullname}",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            )
+                          : Text("UserName")),
+                  SizedBox(
+                    height: height / 55,
+                  ),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: (() {}),
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        primary: Color(0xFFFF981A),
+                      ),
+                      child: const Text("Edit Profile"),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height / 40,
+                  ),
+                  Container(
                     alignment: Alignment.topLeft,
-                    color: Colors.amber,
-                    padding: EdgeInsets.symmetric(horizontal: width/15),
-                    child: 
-                    // const TextField(
-                    //   decoration: InputDecoration(
-                    //       hintText: "ABHI SOLANKI",
-                    //       hintStyle: TextStyle(fontWeight: FontWeight.bold)
-                    //       ),
-                    // ),
-                    user != null ? Text("${user!.fullname}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)
-                  : Text("UserName"),
-                  
+                    margin: EdgeInsets.symmetric(horizontal: 40),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 3,
+                          color: Colors.deepOrange,
+                        ),
+                        borderRadius: BorderRadius.circular(30)),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: user != null
+                        ? Text(
+                            "${user!.fullname}",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          )
+                        : Text("UserName"),
                   ),
-        
-
-                  SizedBox(height: height/60,),
-        
-        
-                Container(
-                  alignment: Alignment.topLeft,
-                    padding: EdgeInsets.symmetric(horizontal: width/15),
-                    child: 
-                    // const TextField(
-                    //   decoration: InputDecoration(
-                    //       hintText: "ASI201910110",
-                    //       hintStyle: TextStyle(fontWeight: FontWeight.bold)
-                    //       ),
-                    // ),
-                    user != null ? Text("${user!.phoneNo}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)
-                  : Text("Phone Number")
+                  SizedBox(
+                    height: height / 60,
                   ),
-        
-                  SizedBox(height: height/60,),
-        
-        
-                Container(
-                  alignment: Alignment.topLeft,
-                    //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
-                    padding: EdgeInsets.symmetric(horizontal: width/15),
-                    child: 
-                    // const TextField(
-                    //   decoration: InputDecoration(
-                    //       hintText: "+91 9912983456",
-                    //       hintStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 17)
-                    //       ),
-                    // ),
-                    user != null ? Text("${user!.email}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)
-                  : Text("Email")
+                  Container(
+                      alignment: Alignment.topLeft,
+                      margin: EdgeInsets.symmetric(horizontal: 40),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 3,
+                            color: Colors.deepOrange,
+                          ),
+                          borderRadius: BorderRadius.circular(30)),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      child: user != null
+                          ? Text(
+                              "${user!.phoneNo}",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            )
+                          : Text("Phone Number")),
+                  SizedBox(
+                    height: height / 60,
                   ),
-        
-                  SizedBox(height: height/60,),
-        
-        
-                Container(
-                  alignment: Alignment.topLeft,
-                  
-                    //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
-                    padding: EdgeInsets.symmetric(horizontal: width/15),
-                    child: 
-                    // const TextField(
-                    //   decoration: InputDecoration(
-                    //       hintText: "382443",
-                    //       hintStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 17)
-                    //       ),
-                    // ),
-                    user != null ? Text("Birth Date",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)
-                  : Text("User ID")
+                  Container(
+                      alignment: Alignment.topLeft,
+                  margin: EdgeInsets.symmetric(horizontal: 40),
+                    decoration: BoxDecoration(border: Border.all(width: 3,color: Colors.deepOrange,),
+                    borderRadius: BorderRadius.circular(30)),
+                    padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                      child:
+                          // const TextField(
+                          //   decoration: InputDecoration(
+                          //       hintText: "+91 9912983456",
+                          //       hintStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 17)
+                          //       ),
+                          // ),
+                          user != null
+                              ? Text(
+                                  "${user!.email}",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                )
+                              : Text("Email")),
+                  SizedBox(
+                    height: height / 60,
                   ),
-        
-                  SizedBox(height: height/15,),
-        
-                ElevatedButton(
-                 // color: const Color(0xFFFF981A),
-                  onPressed: () async {
-                    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-                          sharedPreferences.remove(SplashScreenState.KEYLOGIN);
-                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const login(),));
-                },style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),),
-                  primary:Color(0xFFFF981A) ),
-                child: const Text("LOGOUT",style: const TextStyle(color: Colors.white,fontSize: 15),),
-                )
-                  
-              ],
-            ),
-          ],),
+                  Container(
+                    alignment: Alignment.topLeft,
+                  margin: EdgeInsets.symmetric(horizontal: 40),
+                    decoration: BoxDecoration(border: Border.all(width: 3,color: Colors.deepOrange,),
+                    borderRadius: BorderRadius.circular(30)),
+                    padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                      child:
+                          // const TextField(
+                          //   decoration: InputDecoration(
+                          //       hintText: "382443",
+                          //       hintStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 17)
+                          //       ),
+                          // ),
+                         Text(
+                                  dob,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                ),),
+                            //Text("User ID")),
+                  SizedBox(
+                    height: height / 15,
+                  ),
+                  ElevatedButton(
+                    // color: const Color(0xFFFF981A),
+                    onPressed: () async {
+                      SharedPreferences sharedPreferences =
+                          await SharedPreferences.getInstance();
+                      sharedPreferences.remove(SplashScreenState.KEYLOGIN);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const login(),
+                          ));
+                    },
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        primary: Color(0xFFFF981A)),
+                    child: const Text(
+                      "LOGOUT",
+                      style: const TextStyle(color: Colors.white, fontSize: 15),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
-
-     );
+    );
   }
-  void initPreferences() async{
+
+  void initPreferences() async {
     preferences = await SharedPreferences.getInstance();
+    preferences.getString('dob');
     setState(() {
-      user = User.fromJson(jsonDecode(preferences.getString('userdata')!));
+      user = User.fromJson(jsonDecode(preferences.getString('userdata')!), 
+      dob = preferences.getString('dob')!
+      );
     });
   }
 
+  getStringValuesSF() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  //Return String
+  dob = prefs.getString('dob')!;
+  return dob;
+}
 }

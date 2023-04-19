@@ -58,6 +58,7 @@ class _VehicleRecordsState extends State<VehicleRecords> {
         ),
     );
   }
+}
 
   // @override
   // Widget build(BuildContext context) {
@@ -92,4 +93,3 @@ class _VehicleRecordsState extends State<VehicleRecords> {
   //     ),
   //   );
   // }
-}
